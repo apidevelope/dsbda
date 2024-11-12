@@ -1,0 +1,44 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+# Assuming df is your DataFrame and 'column1', 'column2' are columns in your DataFrame
+df = pd.read_csv('dataset_Facebook.csv',sep=';')  # replace with your file path
+df
+
+# Scatter plot showing the relationship between 'Page total likes' and 'Lifetime Post Total Reach'
+plt.scatter(df['Page total likes'], df['Lifetime Post Total Reach'])
+plt.xlabel('Page total likes')
+plt.ylabel('Lifetime Post Total Reach')
+plt.title('Scatter plot of Page total likes vs Lifetime Post Total Reach')
+plt.show()
+
+# Histogram showing the distribution of 'Page total likes'
+sns.histplot(df['Page total likes'])
+plt.title('Histogram of Page total likes')
+plt.show()
+
+# Select only numeric columns
+numeric_df = df.select_dtypes(include=['float64', 'int64'])
+
+# Compute the correlation matrix
+corr = numeric_df.corr()
+
+# Generate a heatmap
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.title('Correlation heatmap of the DataFrame')
+plt.show()
+
+
+# Box plot of Lifetime Post Consumers by Category
+plt.subplot(1, 1, 1)  # Create a subplot (2 rows, 2 columns, subplot 4)
+plt.boxplot([df[df['Category'] == 1]['Lifetime Post Consumers'],
+             df[df['Category'] == 2]['Lifetime Post Consumers'],
+             df[df['Category'] == 3]['Lifetime Post Consumers']],
+            labels=['Category 1', 'Category 2', 'Category 3'])
+plt.xlabel('Category')
+plt.ylabel('Lifetime Post Consumers')
+plt.title('Lifetime Post Consumers by Category')
+
+plt.tight_layout()  # Adjust the spacing between subplots
+plt.show()  # Display the plots

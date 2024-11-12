@@ -1,0 +1,43 @@
+import pandas as pd #Python library used for working with data sets
+import numpy as np #Python library used for working with arrays
+
+DataFrame1=pd.read_csv('heart.csv') #Read a comma-separated values (csv) file into DataFrame
+DataFrame1
+DataFrame2=pd.read_csv('AirQuality.csv',sep=';') #Read a comma-separated values (csv) file into DataFrame
+DataFrame2
+
+DataFrame1.isna().sum().sum() #Detect missing values for an array-like object
+#.sum() sums up the numbers in the list
+DataFrame1.dtypes
+
+DataFrame3.isna().sum().sum() #Detect missing values for an array-like object
+DataFrame4=DataFrame3.dropna() #Remove missing values
+DataFrame4 
+#Replacing the Object dtype of Date to Date dtype
+DataFrame4['Date'] = pd.to_datetime(DataFrame4['Date'], dayfirst=True)
+DataFrame4
+
+#To Replace the Comma's with Dot
+DataFrame4.replace(to_replace=',',value='.',regex=True,inplace=True)
+DataFrame4
+DataFrame4.drop_duplicates(inplace=True)
+DataFrame4 #Drop Duplicates
+DataFrame1
+
+data tranformation
+DataSet1=DataFrame4[['Date','Time','T','RH','AH']].loc[0:50]
+DataSet1.head()
+DataSet2=DataFrame4[['Date','Time','T','RH','AH']].loc[51:100]
+DataSet2.head()
+DataSet3=DataFrame1[['age','sex','cp','ca','target']].loc[50:100]
+DataSet3.head()
+Merged=pd.concat([DataSet1,DataSet2])
+Merged  #Concatenation of two DataFrames
+
+
+DataFrame1['sex'] = DataFrame1['sex'].replace(1, 'M')#Replacing 1 with M
+DataFrame1['sex'] = DataFrame1['sex'].replace(0, 'F') #Replacing 0 with F
+from sklearn.preprocessing import LabelEncoder #Label encoding is a popular encoding technique for handling categorical variables.
+labelencoder=LabelEncoder() #Encode target labels with value between 0 and n_classes-1.
+DataFrame1["sex"]=labelencoder.fit_transform(DataFrame1["sex"])
+DataFrame1 #used to encode categorical variables into numerical labels

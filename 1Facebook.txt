@@ -1,0 +1,16 @@
+import pandas as pd 
+import numpy as np 
+
+df=pd.read_csv('dataset_Facebook.csv',sep=';')
+df
+
+sorted_data = df.sort_values('Page total likes', ascending = False)
+sorted_data
+
+df.transpose() 
+
+shape_of_data = df.shape
+shape_of_data
+
+pivot_table = pd.pivot_table(df, index=['Type', 'Category'],values='comment')
+print(pivot_table)

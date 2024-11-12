@@ -1,0 +1,41 @@
+import pandas as pd #Python library used for working with data sets
+import numpy as np #Python library used for working with arrays
+
+
+from sklearn.model_selection import train_test_split 
+from sklearn.naive_bayes import GaussianNB,MultinomialNB
+from sklearn.metrics import accuracy_score
+
+DataFrame1=pd.read_csv('heart.csv') #Read a comma-separated values (csv) file into DataFrame
+DataFrame1
+
+#Transformation
+DataFrame1['sex'] = DataFrame1['sex'].replace(1, 'M') #Replacing 1 with M
+DataFrame1['sex'] = DataFrame1['sex'].replace(0, 'F') #Replacing 0 with F
+DataFrame1.head()
+
+from sklearn.preprocessing import LabelEncoder
+labelencoder=LabelEncoder()
+DataFrame1["sex"]=labelencoder.fit_transform(DataFrame1["sex"])
+DataFrame1 #used to encode categorical variables into numerical labels
+
+#Error Correction
+DataFrame1[DataFrame1['ca']==4]
+DataFrame1['ca'] = DataFrame1['ca'].replace(4, np.NaN) 
+
+DataFrame1 = DataFrame1.fillna(DataFrame1.median())
+
+DataFrame1.isnull().sum()
+DataFrame1
+
+#Model_Selection
+x = DataFrame1.drop(["target"], axis=1)
+y = DataFrame1['target']
+X_train, X_test, y_train, y_test = train_test_split( x, y, test_size = 0.3, random_state = 0)
+
+gnb = GaussianNB()
+gnb.fit(X_train, y_train)
+y_pred = gnb.predict(X_test)
+y_pred
+
+print(f"accuracy is {accuracy_score(y_test, y_pred)} ")
